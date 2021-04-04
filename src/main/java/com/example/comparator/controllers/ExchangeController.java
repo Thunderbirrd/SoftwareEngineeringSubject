@@ -35,7 +35,7 @@ public class ExchangeController {
      * @param data Необходимая информация
      * @return Список со значениями
      */
-    @RequestMapping(value = "/converter.html/exchange", method = RequestMethod.POST)
+    @RequestMapping(value = "/converter/exchange", method = RequestMethod.POST)
     public ArrayList<Double> exchange(@RequestBody String data) throws JSONException, ParseException, ParserConfigurationException, SAXException, IOException {
         JSONObject d = new JSONObject(data);
         String currencyFrom = d.getString("currencyFrom");
@@ -67,7 +67,7 @@ public class ExchangeController {
      * Получить историю обменов
      * @param data Необходимая информация
      * @return список обменов*/
-    @RequestMapping(value = "/converter.html/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/converter/search", method = RequestMethod.POST)
     public ArrayList<Exchange> history(@RequestBody String data) throws JSONException, ParseException {
         JSONObject d = new JSONObject(data);
         String dateString = d.getString("date");
