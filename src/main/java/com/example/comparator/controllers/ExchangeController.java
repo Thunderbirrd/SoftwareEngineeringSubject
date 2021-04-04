@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/** Контроллер для работы с обменами */
 @RestController
 public class ExchangeController {
 
@@ -29,6 +30,11 @@ public class ExchangeController {
     @Autowired
     CurrencyService currencyService;
 
+    /**
+     * Произвести обмен
+     * @param data Необходимая информация
+     * @return Список со значениями
+     */
     @RequestMapping(value = "/converter.html/exchange", method = RequestMethod.POST)
     public ArrayList<Double> exchange(@RequestBody String data) throws JSONException, ParseException, ParserConfigurationException, SAXException, IOException {
         JSONObject d = new JSONObject(data);
@@ -57,6 +63,10 @@ public class ExchangeController {
         return answer;
     }
 
+    /**
+     * Получить историю обменов
+     * @param data Необходимая информация
+     * @return список обменов*/
     @RequestMapping(value = "/converter.html/search", method = RequestMethod.POST)
     public ArrayList<Exchange> history(@RequestBody String data) throws JSONException, ParseException {
         JSONObject d = new JSONObject(data);
@@ -66,7 +76,7 @@ public class ExchangeController {
         Integer userId = d.getInt("userId");
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = formatter.parse(dateString);
-        ArrayList<Exchange> result = null;
+        ArrayList<Exchange> result;
         if(currency1.equals("") && currency2.equals("")){
             result = (ArrayList<Exchange>) exchangeService.getAllExchangesByDate(date, userId);
         }else{

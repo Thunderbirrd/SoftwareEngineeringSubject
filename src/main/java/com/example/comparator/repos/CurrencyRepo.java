@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
+/** Репозиторий для работы с валютами */
 @Repository
 public interface CurrencyRepo extends CrudRepository<Currency, Integer> {
     @Query("SELECT currency FROM Currency currency WHERE currency.name=:name")

@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/** Репозиторий для работы с пользователями */
 @Repository
 public interface UserRepo extends CrudRepository<User, Integer> {
     @Query("SELECT user FROM User user WHERE user.login=:login")

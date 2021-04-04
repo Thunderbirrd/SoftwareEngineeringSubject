@@ -14,17 +14,32 @@ public class ExchangeService {
     @Autowired
     ExchangeRepo exchangeRepo;
 
+    /**
+     * Сохранить обмен в БД
+     * @param  exchange обмен
+     */
     @Transactional
-    public Exchange saveExchange(Exchange exchange){
-        return exchangeRepo.save(exchange);
+    public void saveExchange(Exchange exchange){
+        exchangeRepo.save(exchange);
     }
 
+    /**
+     * Получить все обмены по дате
+     * @param date1 дата начала
+     * @param userId id пользователя
+     */
     @Transactional(readOnly = true)
     public List<Exchange> getAllExchangesByDate(Date date1, Integer userId){
 
         return exchangeRepo.getAllByDate(date1, userId);
     }
 
+    /** Получить все обмены по дате и валютам
+     * @param date дата
+     * @param currency1 первая валюта
+     * @param currency2 вторая валюта
+     * @param userId id пользователя
+     */
     @Transactional(readOnly = true)
     public List<Exchange> getAllByDateAndCurrencies(Date date, String currency1, String currency2, Integer userId){
         List<Exchange> listDate = exchangeRepo.getAllByDate(date, userId);

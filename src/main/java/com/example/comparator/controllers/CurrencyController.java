@@ -4,7 +4,6 @@ import com.example.comparator.ApplicationProperties;
 import com.example.comparator.models.Currency;
 import com.example.comparator.services.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,19 +29,27 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-
+/** Контроллер для работы с валютами **/
 @RestController
 public class CurrencyController {
     @Autowired
     CurrencyService currencyService;
 
+    /** Характеристики **/
     ApplicationProperties properties = new ApplicationProperties();
 
+    /**
+     * Получение всех валют
+     * @return список валют
+     */
     @RequestMapping(value = "/getAllCurrencies", method = RequestMethod.GET)
     public ArrayList<Currency> getAllCurrencies(){
         return (ArrayList<Currency>)currencyService.getAllCurrencies();
     }
 
+    /**
+     * Обновление курсов валют
+     */
     void updateRates(CurrencyService currencyService) throws IOException, ParserConfigurationException, SAXException, ParseException {
         URL obj = new URL(properties.getProperty("cbr.url"));
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();

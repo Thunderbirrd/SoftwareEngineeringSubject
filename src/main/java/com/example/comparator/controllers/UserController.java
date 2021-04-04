@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+/** Контроллер для работы с пользователями */
 @RestController
 public class UserController {
     @Autowired
@@ -18,6 +19,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /** Регистрация пользователя
+     * @param userData данные пользователя
+     * @return пользователь
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public User register(@RequestBody String userData) throws JSONException {
         User user = new User();
@@ -32,6 +37,10 @@ public class UserController {
         return null;
     }
 
+    /** Логин
+     * @param userData данные пользователя
+     * @return id пользователя или сообщение об ошибке
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody String userData) throws JSONException{
         JSONObject data = new JSONObject(userData);
