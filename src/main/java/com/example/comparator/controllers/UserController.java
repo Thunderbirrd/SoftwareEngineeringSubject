@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.logging.Logger;
+
 /** Контроллер для работы с пользователями */
 @RestController
 public class UserController {
@@ -43,6 +45,7 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(@RequestBody String userData) throws JSONException{
+        System.err.println(userData);
         JSONObject data = new JSONObject(userData);
         String login = data.getString("login");
         String password = data.getString("password");
