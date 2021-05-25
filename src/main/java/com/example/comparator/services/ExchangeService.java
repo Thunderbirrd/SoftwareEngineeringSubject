@@ -47,4 +47,14 @@ public class ExchangeService {
         listDate.retainAll(listCurrencies);
         return listDate;
     }
+
+    /**
+     * Получить историю обменов пользователя
+     * @param userId ID пользователя
+     *
+     */
+    @Transactional(readOnly = true)
+    public List<Exchange> getUsersHistory(Integer userId){
+        return exchangeRepo.getAllUsersExchanges(userId);
+    }
 }

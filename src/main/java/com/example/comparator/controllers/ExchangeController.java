@@ -64,11 +64,11 @@ public class ExchangeController {
     }
 
     /**
-     * Получить историю обменов
+     * Получить историю обменов с фильтрами
      * @param data Необходимая информация
      * @return список обменов*/
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ArrayList<Exchange> history(@RequestBody String data) throws JSONException, ParseException {
+    public ArrayList<Exchange> historyByDate(@RequestBody String data) throws JSONException, ParseException {
         JSONObject d = new JSONObject(data);
         String dateString = d.getString("date");
         String currency1 = d.getString("currency1");
@@ -83,5 +83,16 @@ public class ExchangeController {
             result = (ArrayList<Exchange>) exchangeService.getAllByDateAndCurrencies(date, currency1, currency2, userId);
         }
         return result;
+    }
+
+    /**
+     * Получить всю историю обменов
+     * @param userId ID пользователя
+     * @return списсок обменов
+     */
+    @RequestMapping(value = "/history", method = RequestMethod.POST)
+    public ArrayList<Exchange> history(@RequestBody String userId) throws JSONException {
+        Integer id = new JSONObject(userId).getInt("userId");
+        return (ArrayList<Exchange>) exchangeService.getUsersHistory(id);
     }
 }

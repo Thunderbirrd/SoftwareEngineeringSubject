@@ -18,4 +18,7 @@ public interface ExchangeRepo extends CrudRepository<Exchange, Integer> {
             " exchange.currency2=:currency2 AND exchange.user_id=:userId ORDER BY exchange.id")
     List<Exchange> getAllByCurrency1AndCurrency2(@Param("currency1")String currency1,
                                                  @Param("currency2") String currency2, @Param("userId") Integer userId);
+
+    @Query("SELECT exchange FROM Exchange exchange WHERE exchange.user_id=:userId")
+    List<Exchange> getAllUsersExchanges(@Param("userId")Integer userId);
 }
