@@ -3,7 +3,7 @@ Backend для проекта
 Ссылка: https://converter-se-course.herokuapp.com/  
 Endpoints:   
   1)/getAllCurrencies GET  
-  2)/rigister POST Body: login, password  
+  2)/register POST Body: login, password  
   3)/login POST Body: login, password  
   4)/converter/exchange POST Body: currencyFrom, currencyTo, userId, input  
   5)/converter/search POST Body: date, currency1, currency2, userId  
