@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /** Контроллер для работы с обменами */
-@RestController("/converter")
+@RestController
+@RequestMapping("/converter")
 public class ExchangeController {
 
     @Autowired
@@ -36,7 +37,7 @@ public class ExchangeController {
      * @return Список со значениями
      */
     @RequestMapping(value = "/exchange", method = RequestMethod.POST)
-    public ArrayList<Double> exchange(@RequestBody String data) throws JSONException, ParseException, ParserConfigurationException, SAXException, IOException {
+    public Double exchange(@RequestBody String data) throws JSONException, ParseException, ParserConfigurationException, SAXException, IOException {
         JSONObject d = new JSONObject(data);
         String currencyFrom = d.getString("currencyFrom");
         String currencyTo = d.getString("currencyTo");
@@ -50,17 +51,15 @@ public class ExchangeController {
             CurrencyController controller = new CurrencyController();
             controller.updateRates(currencyService);
         }
-        ArrayList<Double> answer = new ArrayList<>();
-        answer.add(currency1.getRate()); answer.add(currency2.getRate());
         Exchange exchange = new Exchange();
         exchange.setCurrency1(currency1.getName());
         exchange.setCurrency2(currency2.getName());
         exchange.setUser_id(id);
         exchange.setValue1(value); exchange.setValue2(Math.round(value * currency1.getRate() /
-                currency2.getRate() * 10000.0) / 10000.0);
+                currency2.getRate() * 1000.0) / 1000.0);
         exchange.setDate(formatter.parse(formatter.format(date)));
         exchangeService.saveExchange(exchange);
-        return answer;
+        return exchange.getValue2();
     }
 
     /**
